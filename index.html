@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Sans Traditional Chinese">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>  
+    </head>
+    <body>
+        <img class = "login-logo" src="school1.png">
+        <div class = "login-area">
+            <h2>課程系統</h2>
+            <div class="input-form">
+                <label >學生學號或教職編號</label>
+                <input class = "login-input" placeholder="輸入學號或編號" id = "account">
+                <label>密碼</label>
+                <input class = "login-input" placeholder="輸入密碼" id = "account">
+                <button class="login-button" onclick="send()" id = "send" >送出</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        function send(){
+            window.location.href = window.location.origin + "/student.html";
+        }
+    </script>
+</html>

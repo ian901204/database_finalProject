@@ -1,0 +1,188 @@
+body{
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #C9C9C9;
+}
+
+.content{
+    justify-content: center;
+    position: absolute;
+    right: 0%;
+    top: 50px;
+    left: 200px;
+    height: 100%;
+    --pwidth: 100% - 200px;
+    width: var(--pwidth);
+    box-sizing: content-box;
+    padding: 20px;
+}
+.course_info{
+    position: relative;
+    width: calc(var(--pwidth) - 200px);
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border-radius: 5px;
+}
+
+
+.course_info td, .course_info th {
+    padding-left: 10px;
+    font-size: 18px;
+    background-color: white;
+    border-bottom: 1px solid rgb(53, 53, 53);
+    white-space:nowrap;
+}
+.course_info td{
+    height: 45px;
+}
+
+.course_info th:first-child{
+    border-top-left-radius: 10px;
+}
+.course_info th:last-child{
+    border-top-right-radius: 10px;
+}
+
+.course_info th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: white;
+color: black;
+}
+
+.topbar{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border: 1px solid lightgray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.topbar img{
+    justify-self: center;
+    margin: 10px 10px 5px 10px;
+    width: 175px;
+    height: 30;
+}
+
+
+
+.sidebar{
+    height: 100%; /* 100% Full-height */
+    width: 200px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 50px; /* Stay at the top */
+    left: 0;
+    background-color: #E6E6E6   ; /* Black*/
+    overflow-x: hidden;
+    padding: 10px 0px 0px 0px;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sidebar .menu-option{
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #5E5D5D;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar .menu-option.active{
+    padding: 8px 8px 8px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar .menu-option:hover {
+    color: lightblue;
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    animation: border-radius 1s;
+}
+
+.login-logo{
+    position: absolute;
+    top: 20px;
+    width: 300px;
+    height: 150px;
+}
+
+.input-form {
+    margin: 2px;
+    box-sizing: border-box;
+}
+
+.login-area input{
+    border-radius: 5px;
+    width: 100%;
+    height: 25px;
+    padding: 5px 10px;
+    margin-top: 5px;
+    margin-bottom: 7px;
+    font-size: 16px;
+    border: 2px solid lightgray;
+    box-sizing: border-box;
+}
+
+.login-button{
+    border-radius: 5px;
+    font-size: 12pt;
+    color: black;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: lightblue;
+    transition: background-color 1s,box-shadow 1s;
+}
+.login-button:hover{
+    background-color: rgb(1, 165, 89);
+}
+
+.login-area{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    top: 170px;
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+    border: 2px solid lightblue;
+    padding:10px 30px 10px 30px;
+    margin-top: 20px;
+    justify-self: center;
+}
+
+.login-area h2{
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0px;
+}
+
+.login-area label{
+    font-size: 16px;
+    margin-bottom: 0px;
+}
