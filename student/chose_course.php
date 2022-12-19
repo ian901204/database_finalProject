@@ -1,3 +1,7 @@
+<?php
+include ("data_object/student.php");
+$student = new student();
+?>
 <html>
     <head>
         <?php
@@ -7,14 +11,13 @@
     <body>
         <div class = "topbar">
             <img src = "nkust.png">
-            <div class = "student">
-                <select class = "student_select">
+                <select >
                     <?php 
+                        $data = $student -> get_all();
                         
                     ?>
                     <option value = ""></option>
                 </select>
-            </div>
         </div>
         <div class="sidebar">
             <a class = "menu-option active" href = "student/chose_course.php">加退選課程</a>

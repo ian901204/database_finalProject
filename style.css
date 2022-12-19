@@ -62,18 +62,26 @@ color: black;
     background-color: white;
     border: 1px solid lightgray;
     position: fixed;
+    display: flex;
+    align-items: center;
     top: 0;
     left: 0;
     z-index: 2;
 }
 .topbar img{
     justify-self: center;
-    margin: 10px 10px 5px 10px;
+    margin: 5px 13px;
     width: 175px;
     height: 30;
 }
 
-
+.topbar  select{
+    position: relative;
+    justify-self: right;
+    right: 0%;
+    width: 200px;
+    height: 20px;
+}
 
 .sidebar{
     height: 100%; /* 100% Full-height */
