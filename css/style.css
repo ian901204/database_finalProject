@@ -4,7 +4,15 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #C9C9C9;
+    background-color: #C9C9C9; 
+    overflow: hidden;
+}
+button:disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #5E5D5D;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
 }
 
 .content{
@@ -13,22 +21,26 @@ body{
     right: 0%;
     top: 50px;
     left: 200px;
-    height: 100%;
+    height: calc(100% - 50px);
     --pwidth: 100% - 200px;
     width: var(--pwidth);
     box-sizing: content-box;
-    padding: 20px;
+    padding: 20px 0px;
+    
 }
 .course_info{
     position: relative;
-    width: calc(var(--pwidth) - 200px);
-    margin-top: 50px;
+    width: calc(var(--pwidth) - 100px);
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
     border-radius: 5px;
+    
 }
 
+.course_info tbody{
+    overflow-y: auto;
+}
 
 .course_info td, .course_info th {
     padding-left: 10px;
@@ -40,12 +52,20 @@ body{
 .course_info td{
     height: 45px;
 }
-
 .course_info th:first-child{
     border-top-left-radius: 10px;
 }
 .course_info th:last-child{
     border-top-right-radius: 10px;
+}
+.course_info tr:last-child td{
+    border: none;
+}
+.course_info tr:last-child td:first-child{
+    border-bottom-left-radius: 10px;
+}
+.course_info tr:last-child td:last-child{
+    border-bottom-right-radius: 10px;
 }
 
 .course_info th {
@@ -54,6 +74,49 @@ padding-bottom: 12px;
 text-align: left;
 background-color: white;
 color: black;
+}
+
+tr:nth-child(n + 12) {
+    display: none;
+}
+.course_info .course_page{
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    transition: 0.3s;
+}
+.course_info .course_page:hover{
+    width: 10px;
+    height: 10px;
+    background-color: lightblue;
+    border-radius: 100%;
+    transition: 0.3s;
+}
+
+
+.class_chosen{
+    position: relative;
+    display: block flex;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow:hidden
+}
+.class_chosen .class_title{
+    position: relative;
+    background-color: #e0e0e0;
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+    height: 40px;
+}
+.class_chosen .class_title a{
+    position: relative;
+    left: 0%;
+    top:9px;
+    left: 3px;
+    font-size: 17px;
 }
 
 .topbar{
@@ -75,12 +138,15 @@ color: black;
     height: 30;
 }
 
-.topbar  select{
+.topbar .student_select{
     position: relative;
     justify-self: right;
+    border-radius: 5px;
+    background-color: rgb(216, 216, 216);
     right: 0%;
     width: 200px;
-    height: 20px;
+    font-size: 14px;
+    height: 30px;
 }
 
 .sidebar{
@@ -119,7 +185,7 @@ color: black;
 
 .sidebar .menu-option:hover {
     color: lightblue;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 0px 10px 10px 0px;
     animation: border-radius 1s;
 }
@@ -136,19 +202,18 @@ color: black;
     box-sizing: border-box;
 }
 
-.login-area input{
+.input-form select.student_select{
+    position: relative;
+    justify-self: right;
     border-radius: 5px;
+    background-color: rgb(216, 216, 216);
+    right: 0%;
     width: 100%;
-    height: 25px;
-    padding: 5px 10px;
-    margin-top: 5px;
-    margin-bottom: 7px;
-    font-size: 16px;
-    border: 2px solid lightgray;
-    box-sizing: border-box;
+    font-size: 14px;
+    height: 30px;
 }
 
-.login-button{
+.input-form .login-button{
     border-radius: 5px;
     font-size: 12pt;
     color: black;
@@ -160,10 +225,12 @@ color: black;
     position: relative;
     border: none;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     background-color: lightblue;
     transition: background-color 1s,box-shadow 1s;
 }
+
+
 .login-button:hover{
     background-color: rgb(1, 165, 89);
 }

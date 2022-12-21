@@ -1,32 +1,18 @@
-<?php
-include ("data_object/student.php");
-$student = new student();
-?>
+
 <html>
     <head>
         <?php
-            include "../head.php" 
+            include (__DIR__."/../common_file/head.php");
         ?>  
     </head>
     <body>
-        <div class = "topbar">
-            <img src = "nkust.png">
-                <select >
-                    <?php 
-                        $data = $student -> get_all();
-                        
-                    ?>
-                    <option value = ""></option>
-                </select>
-        </div>
-        <div class="sidebar">
-            <a class = "menu-option active" href = "student/chose_course.php">加退選課程</a>
-            <a class = "menu-option" href = "student/reviewer_course.php">檢視個人課表</a>
-        </div>
-        <div>
+        <?php
+            include (__DIR__."/../common_file/topbar.php");
+        ?>
+        <div class = "content">
+            <div class = "class_chosen">
+                <a>已選課程清單</a>
+            </div>
         </div>
     </body>
-    <script>
-        
-    </script>
 </html>

@@ -15,5 +15,9 @@ class mysql_conn{
             echo "Connection failed: " . $e->getMessage();
         }
     }
+    function sqlQuery($sql){
+        $sql = $this::$conn -> prepare($sql);
+        return $sql -> execute();
+    }
 }
 ?>

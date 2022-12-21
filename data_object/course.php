@@ -1,16 +1,17 @@
 <?php
 require_once __DIR__."/mysql_conn.php";
-class student extends mysql_conn
+class course extends mysql_conn
 {
+    private static $table = "course";
     function __construct() {
         parent::__construct();
     }
-    public function insert($id, $name, $major_id){
+    public function insert($id, $name, $credits){
         try{
             $id = $this::$conn -> quote($id);
             $name = $this::$conn -> quote($name);
-            $major_id = $this::$conn -> quote($major_id);
-            $result = $this::$conn -> exec("insert into student VALUES($id, $name, $major_id)");
+            $credits = $this::$conn -> quote($credits);
+            $result = $this::$conn -> exec("INSERT INTO $this::$table VALUES($id, $name, $credits)");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1) {
@@ -22,7 +23,7 @@ class student extends mysql_conn
     }
     public function get_all(){
         try{
-            return $this::$conn -> query("SELECT * FROM student") -> fetchAll();
+            return $this::$conn -> query("SELECT * FROM $this::$table") -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
         }
@@ -30,7 +31,7 @@ class student extends mysql_conn
     public function get_by_id($id){
         try{
             $id = $this::$conn -> quote($id);
-            $data = $this::$conn -> query("SELECT * FROM student WHERE id = $id");
+            $data = $this::$conn -> query("SELECT * FROM $this::$table WHERE id = $id");
             return $data -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
@@ -39,7 +40,7 @@ class student extends mysql_conn
     public function delete_by_id($id){
         try{
             $id = $this::$conn -> quote($id);
-            $result = $this::$conn -> exec("delete from student where id = $id");
+            $result = $this::$conn -> exec("DELETE FROM $this::$table WHERE id = $id");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
@@ -53,21 +54,17 @@ class student extends mysql_conn
     }
     public function update_by_id($id, $update_data){
         // $update_data = [
-        //     "name" => "update_name",
-        //     "major_id" => "update_major_id"
+        //     "name" => "updata data of name",
+        //     "credits" => "update data of credits"
         // ]
         try{
             $id = $this::$conn -> quote($id);
-            $sql = "UPDATE student SET name=:name, major_id=:major_id where id = $id";
+            $sql = "UPDATE $this::$table SET name=:name, credits=:credits WHERE id = $id";
             $sql = $this::$conn -> prepare(sql);
             $result = $sql -> execute($update_data);
         }catch(PDOException $e){
             return $e -> getMessage();
         }
-    }
-    public function sqlQuery($sql){
-        $sql = $this::$conn -> prepare($sql);
-        return $sql -> execute();
     }
 }
 ?>
