@@ -17,7 +17,8 @@ class mysql_conn{
     }
     function sqlQuery($sql){
         $sql = $this::$conn -> prepare($sql);
-        return $sql -> execute();
+        $sql -> execute();
+        return $sql -> fetchAll();
     }
 }
 ?>
