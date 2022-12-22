@@ -1,12 +1,12 @@
 <html>
     <head>
         <?php
-            include (__DIR__."/../common_file/head.php");
+            include (__DIR__."/../head.php");
         ?> 
     </head>
     <body>
         <?php
-            include (__DIR__."/../common_file/topbar.php");
+            include (__DIR__."/common_file/topbar.php");
         ?>
         <div class = "content">
             <table class = "course_info">
@@ -14,7 +14,7 @@
                     <tr>
                         <th>課程名稱</th>
                         <th>課程編號</th>
-                        <th>課程講師</th>
+                        <th>學分數</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,26 +24,27 @@
                         $course_log = new course_log();
                         $course = new course();
                         $data = $course_log -> get_by_student_id($_GET["id"]);
-                        $course_data = [];
-                        foreach($data as $col){
-                            array_push($course_data, $course->get_by_id($col["student_id"]));
+                        if ($data == []){
+                            echo "<tr>";
+                            echo "<td>無選課資料</td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "</tr>";
+                        }else{
+                            foreach($data as $col){
+                                foreach($course->get_by_id($col["course_id"]) as $course_data){
+                                    echo "<tr>";
+                                    echo "<td>".$course_data['name']."</td>";
+                                    echo "<td>".$course_data['id']."</td>";
+                                    echo "<td>".$course_data['credits']."</td>";
+                                    echo "</tr>";
+                                }
+                            }
                         }
-                        var_dump($course_data);
                     ?>
-                    <tr>
-                        <td>名稱</td>
-                        <td>名稱</td>
-                        <td>名稱</td>
-                    </tr>
-                    <tr>
-                        <td>名稱</td>
-                        <td>名稱</td>
-                        <td>名稱</td>
-                    </tr>
-
                     <tr style = "display: table-row;">
                         <td></td>
-                        <td style = "text-align: center"><a class="course_page" oncllick = "last_page()"><</a>  1  <a class = "course_page" onclick="next_page()">></a></td>
+                        <td ></td>
                         <td></td>
                     </tr>
                 </tbody>
