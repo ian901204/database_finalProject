@@ -5,7 +5,7 @@ body{
     flex-direction: column;
     justify-content: center;
     background-color: #C9C9C9; 
-    overflow: hidden;
+    margin: 0px;
 }
 button:disabled{
     pointer-events: none;
@@ -25,24 +25,17 @@ button:disabled{
     --pwidth: 100% - 200px;
     width: var(--pwidth);
     box-sizing: content-box;
-    padding: 20px 0px;
-    
 }
-.course_info{
+.content .course_info{
     position: relative;
     width: calc(var(--pwidth) - 100px);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px 150px;
     border-collapse: collapse;
     border-radius: 5px;
-    
-}
-
-.course_info tbody{
-    overflow-y: auto;
 }
 
 .course_info td, .course_info th {
+    width: 210px;
     padding-left: 10px;
     font-size: 18px;
     background-color: white;
@@ -92,6 +85,28 @@ tr:nth-child(n + 12) {
     background-color: lightblue;
     border-radius: 100%;
     transition: 0.3s;
+}
+.course_info button.course{
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    border-radius: 5px;
+    border: none;
+    width: 150px;
+    height: 35px;
+    transition: 0.5s;
+}
+.course_info button.course.success{
+    background-color: rgb(0, 253, 114);
+}
+.course_info button.course.danger{
+    background-color: rgb(253, 72, 0);
+}
+.course_info button.course.success:hover{
+    background-color: rgb(0, 190, 86);
+}
+.course_info button.course.danger:hover{
+    background-color: rgb(189, 53, 0);
+    transition: 0.5s;
 }
 
 
