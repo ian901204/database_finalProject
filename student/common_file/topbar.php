@@ -17,8 +17,12 @@
     </select>
 </div>
 <div class="sidebar">
-    <a id = "menu_1" class = "menu-option" href = "student/chose_course.php">加退選課程</a>
-    <a id = "menu_2" class = "menu-option" href = "student/reviewer_course.php">檢視個人課表</a>
+    <menu>
+        <a id = "menu_1" class = "menu-option" href = "student/chose_course.php">加退選課程</a>
+    </menu>
+    <menu>
+        <a id = "menu_2" class = "menu-option" href = "student/reviewer_course.php">檢視個人課表</a>
+    </menu>
 </div>
 <script>
 var menu_1 = $("#menu_1");
