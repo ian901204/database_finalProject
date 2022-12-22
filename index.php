@@ -1,6 +1,6 @@
 <html>
     <head>
-        <?php include __DIR__."/common_file/head.php" ?>
+        <?php include __DIR__."/head.php" ?>
     </head>
     <body>
         <img class = "login-logo" src="school1.png">
@@ -25,7 +25,7 @@
     </body>
     <script>
         function teacher(){
-            window.location.href = window.location.origin + "/teacher/teacher.html";
+            window.location.href = window.location.origin + "/teacher/course_manage.php";
         }
         function student(){
             var id = $("#student_select").val();
