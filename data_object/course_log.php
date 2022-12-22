@@ -2,18 +2,20 @@
 require_once __DIR__."/mysql_conn.php";
 class course_log extends mysql_conn
 {
-    private static $table = "course_log";
+    private static $table = 'course_log';
     function __construct() {
         parent::__construct();
     }
-    public function insert($studen_id, $course_id){
+    public function insert($student_id, $course_id){
         try{
+            $table = $this::$table;
             $student_id = $this::$conn -> quote($student_id);
             $course_id = $this::$conn -> quote($course_id);
-            $result = $this::$conn -> exec("INSERT INTO $this::$table VALUES($student_id, $course_id)");
+            $result = $this::$conn -> exec("INSERT INTO $table (student_id, course_id) VALUES($student_id, $course_id)");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1) {
+                $this::$conn -> commit();
                 return TRUE;
             }
         }catch (PDOException $e){
@@ -22,14 +24,19 @@ class course_log extends mysql_conn
     }
     public function get_all(){
         try{
-            return $this::$conn -> query("SELECT * FROM $this::$table") -> fetchAll();
+            $table = $this::$table;
+            $sql = $this::$conn -> prepare("SELECT * FROM $table");
+            $sql -> execute();
+            $res = $sql -> fetchAll();
+            return $res;
         }catch (PDOException $e){
             return $e -> getMessage();
         }
     }
     public function get_by_student_id($id){
         try{
-            $data = $this::$conn -> query("SELECT * FROM $this::$table WHERE student_id = $id");
+            $table = $this::$table;
+            $data = $this::$conn -> query("SELECT * FROM $table WHERE student_id = '".$id."'");
             return $data -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
@@ -37,17 +44,20 @@ class course_log extends mysql_conn
     }
     public function get_by_course_id($id){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $data = $this::$conn -> query("SELECT * FROM $this::$table WHERE course_id = $id");
+            $data = $this::$conn -> query("SELECT * FROM $table WHERE course_id = $id");
             return $data -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
         }
     }
-    public function delete_by_student_id($id){
+    public function delete($student_id, $course_id){
         try{
-            $id = $this::$conn -> quote($id);
-            $result = $this::$conn -> exec("DELETE FROM $this::$table WHERE student_id = $id");
+            $table = $this::$table;
+            $student_id = $this::$conn -> quote($student_id);
+            $course_id = $this::$conn -> quote($course_id);
+            $result = $this::$conn -> exec("DELETE FROM $table WHERE student_id = $student_id AND course_id = $course_id");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
@@ -55,14 +65,14 @@ class course_log extends mysql_conn
                 return TRUE;
             }
         }catch (PDOException $e) {
-            $this::$conn -> rollBack();
             return $e -> getMessage();
         }
     }
     public function delete_by_course_id($id){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $result = $this::$conn -> exec("DELETE FROM $this::$table WHERE course_id = $id");
+            $result = $this::$conn -> exec("DELETE FROM $table WHERE course_id = $id");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
@@ -76,8 +86,9 @@ class course_log extends mysql_conn
     }
     public function score_update_by_student_id($id, $score){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $sql = "UPDATE $this::$table SET score=:score WHERE student_id = $id";
+            $sql = "UPDATE $table SET score=:score WHERE student_id = $id";
             $sql = $this::$conn -> prepare(sql);
             $result = $sql -> execute(["score" => $update_data]);
         }catch(PDOException $e){

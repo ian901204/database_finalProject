@@ -8,10 +8,11 @@ class course extends mysql_conn
     }
     public function insert($id, $name, $credits){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
             $name = $this::$conn -> quote($name);
             $credits = $this::$conn -> quote($credits);
-            $result = $this::$conn -> exec("INSERT INTO $this::$table VALUES($id, $name, $credits)");
+            $result = $this::$conn -> exec("INSERT INTO $table VALUES($id, $name, $credits)");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1) {
@@ -21,26 +22,42 @@ class course extends mysql_conn
             return $e -> getMessage();
         }
     }
+    public function get_unselect($selected_course){
+        // $selected_course = [[0] => "course_id" .....];
+        try{
+            $table = $this::$table;
+            $in_array = implode("', '", $selected_course);
+            $sql = $this::$conn -> prepare("SELECT * FROM $table WHERE id not in ('$in_array')");
+            $sql -> execute();
+            return $sql -> fetchAll();
+        }catch(PDOException $e){
+            return $e -> getMessage();
+        }
+    }
     public function get_all(){
         try{
-            return $this::$conn -> query("SELECT * FROM $this::$table") -> fetchAll();
+            $table = $this::$table;
+            return $this::$conn -> query("SELECT * FROM $table") -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
         }
     }
     public function get_by_id($id){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $data = $this::$conn -> query("SELECT * FROM $this::$table WHERE id = $id");
-            return $data -> fetchAll();
+            $sql = $this::$conn -> prepare("SELECT * FROM $table WHERE id = $id");
+            $sql -> execute();
+            return $sql -> fetchAll();
         }catch (PDOException $e){
             return $e -> getMessage();
         }
     }
     public function delete_by_id($id){
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $result = $this::$conn -> exec("DELETE FROM $this::$table WHERE id = $id");
+            $result = $this::$conn -> exec("DELETE FROM $table WHERE id = $id");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
@@ -58,8 +75,9 @@ class course extends mysql_conn
         //     "credits" => "update data of credits"
         // ]
         try{
+            $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $sql = "UPDATE $this::$table SET name=:name, credits=:credits WHERE id = $id";
+            $sql = "UPDATE $table SET name=:name, credits=:credits WHERE id = $id";
             $sql = $this::$conn -> prepare(sql);
             $result = $sql -> execute($update_data);
         }catch(PDOException $e){
