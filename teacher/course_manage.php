@@ -10,29 +10,29 @@
         ?>
         <div class = "content">
             <div id="add_course" class="overlay">
-                <div class = "course_action">
-                    <div class = "input-area">
-                        <label class = "course-label">新增課程</label>
+                <div class = "overlay_action">
+                    <div class = "input_area">
+                        <label class = "overlay_label">新增課程</label>
                         <input class = "data_input" placeholder = "請輸入名稱"></input>
                         <input class = "data_input" placeholder = "請輸入學分"></input>
                     </div>
-                    <div class = "button-area">
+                    <div class = "button_area">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav('add_course')">&times;</a>
-                        <button class = "add-course" onclick="openNav()">新增課程</button>
+                        <button class = "add_button" onclick="openNav()">新增課程</button>
                     </div>
                 </div>
             </div>
 
             <div id="edit_course" class="overlay">
-                <div class = "course_action">
-                    <div class = "input-area">
-                        <label class = "course-label">編輯課程</label>
+                <div class = "overlay_action">
+                    <div class = "input_area">
+                        <label class = "overlay_label">編輯課程</label>
                         <input class = "data_input" id = 'course_name' placeholder = "請輸入名稱"></input>
                         <input class = "data_input" id = 'course_credits' placeholder = "請輸入學分"></input>
                     </div>
-                    <div class = "button-area">
+                    <div class = "button_area">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav('edit_course')">&times;</a>
-                        <button class = "add-course" id = "edit_button" onclick="edit_course()">完成編輯</button>
+                        <button class = "add_button" id = "edit_button" onclick="edit_course()">完成編輯</button>
                     </div>
                 </div>
             </div>
@@ -87,24 +87,15 @@
                     document.getElementById("edit_course").style.height = "0%";
                 },
                 error: function(jqXhr, textStatus, errorMessage){
-                    console.log("error");
+                    alert("編輯失敗 請稍後在試一次")
                 }
             });
         }
         function edit(id){
-            document.getElementById("add_course").style.height = "0%";
-            document.getElementById("edit_course").style.height = "100%";
+            openNav("edit_course");
             $("#course_name").val($("#" + id).find("#name").text());
             $("#course_credits").val($("#" + id).find("#credits").text());
             $("#edit_button").attr("onclick","edit_course('"+ id +"')");
-        }
-        function openNav() {
-            document.getElementById("edit_course").style.height = "0%";
-            document.getElementById("add_course").style.height = "100%";
-        }
-
-        function closeNav(id) {
-            document.getElementById(id).style.height = "0%";
         }
     </script>
 </html>

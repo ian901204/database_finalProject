@@ -1,21 +1,22 @@
 <?php
 require_once __DIR__."/mysql_conn.php";
-class student extends mysql_conn
+class apartment extends mysql_conn
 {
-    private static $table = "student";
+    private static $table = 'apartment';
     function __construct() {
         parent::__construct();
     }
-    public function insert($id, $name, $apartment_id){
+    public function insert($id, $name, $director){
         try{
             $table = $this::$table;
             $id = $this::$conn -> quote($id);
             $name = $this::$conn -> quote($name);
-            $apartment_id = $this::$conn -> quote($apartment_id);
-            $result = $this::$conn -> exec("INSERT INTO $table VALUES($id, $name, $apartment_id)");
+            $director = $this::$conn -> quote($director);
+            $result = $this::$conn -> exec("INSERT INTO $table (id, name, director) VALUES($id, $name, $director)");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1) {
+                $this::$conn -> commit();
                 return TRUE;
             }
         }catch (PDOException $e){
@@ -25,7 +26,10 @@ class student extends mysql_conn
     public function get_all(){
         try{
             $table = $this::$table;
-            return $this::$conn -> query("SELECT * FROM $table") -> fetchAll();
+            $sql = $this::$conn -> prepare("SELECT * FROM $table");
+            $sql -> execute();
+            $res = $sql -> fetchAll();
+            return $res;
         }catch (PDOException $e){
             return $e -> getMessage();
         }
@@ -52,23 +56,21 @@ class student extends mysql_conn
                 return TRUE;
             }
         }catch (PDOException $e) {
-            $this::$conn -> rollBack();
             return $e -> getMessage();
         }
     }
-    public function update_by_id($id, $update_data){
-        // $update_data = [
-        //     "name" => "update_name",
-        //     "apartment_id" => "update_apartment_id"
-        // ]
+    public function update_by_id($id, $data){
+        //$data = [
+        //  "name": "name",
+        //  "director": "director"
+        //]
         try{
             $table = $this::$table;
             $id = $this::$conn -> quote($id);
-            $sql = "UPDATE $table SET name=:name, apartment_id=:apartment_id where id = $id";
-            $sql = $this::$conn -> prepare($sql);
-            $result = $sql -> execute($update_data);
+            $sql = $this::$conn -> prepare("UPDATE $table SET name = :name, director= :director WHERE id = $id");
+            $result = $sql -> execute($data);
             return $result;
-        }catch(PDOException $e){
+        }catch (PDOException $e) {
             return $e -> getMessage();
         }
     }
