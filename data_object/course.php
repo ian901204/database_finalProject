@@ -78,8 +78,9 @@ class course extends mysql_conn
             $table = $this::$table;
             $id = $this::$conn -> quote($id);
             $sql = "UPDATE $table SET name=:name, credits=:credits WHERE id = $id";
-            $sql = $this::$conn -> prepare(sql);
+            $sql = $this::$conn -> prepare($sql);
             $result = $sql -> execute($update_data);
+            return $result;
         }catch(PDOException $e){
             return $e -> getMessage();
         }

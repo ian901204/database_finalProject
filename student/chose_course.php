@@ -36,6 +36,7 @@
                             echo "<td>已無可選課程</td>";
                             echo "<td></td>";
                             echo "<td></td>";
+                            echo "<td></td>";
                             echo "</tr>";
                         }else{
                             foreach($unselect_course as $course_data){

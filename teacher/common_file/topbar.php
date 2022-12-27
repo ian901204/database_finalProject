@@ -8,7 +8,7 @@
     </menu>
     <menu>
         <a id = "menu_2" class = "menu-option" href = "teacher/course_manage.php">課程管理</a>
-        <a id = "menu_2_1" class = "menu-option child" onclick = "openNav()" style = "display:none;">新增課程</a>
+        <a id = "menu_2_1" class = "menu-option child" onclick = "openNav('add_course')" style = "display:none;">新增課程</a>
     </menu>
     <menu>
         <a id = "menu_3" class = "menu-option" href = "teacher/student_manage.php">學生管理</a>
