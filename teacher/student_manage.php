@@ -33,7 +33,7 @@
                     </div>
                     <div class = "button_area">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav('edit_student')">&times;</a>
-                        <button class = "add_button" id = "edit_button" onclick="edit_course()">完成編輯</button>
+                        <button class = "add_button" id = "edit_button" onclick="edit_student()">完成編輯</button>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                 success: function(data){
                     var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td id = 'apartment_id'>"+$("#add_apartment_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = 'delete_student(\""+$("#add_id").val()+"\")'>刪除</button></td></tr>"
                     console.log($('tbody tr').length - 1)
-                    $( "tbody tr:nth-last-child(2)" ).append( append_html);
+                    $("tbody").prepend(append_html);
                     $("#add_student input.data_input").each(function(){
                         $(this).val("")
                     })
