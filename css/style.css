@@ -26,6 +26,27 @@ button:disabled{
     width: var(--pwidth);
     box-sizing: content-box;
 }
+.chose_student{
+    position: relative;
+    border-radius: 10px;
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    margin: 10px 150px;
+}
+.chose_student .student_select{
+    position: relative;
+    justify-self: right;
+    border-radius: 5px;
+    background-color: rgb(216, 216, 216);
+    right: 0%;
+    width: 90%;
+    height: 40px;
+    font-size: 14px;
+    top: calc(50% - 15px);
+    left: 5%;
+    height: 30px;
+}
 .content .overlay {
     height:0%;
     width: var(--pwidth);

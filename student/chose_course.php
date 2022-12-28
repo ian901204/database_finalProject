@@ -21,8 +21,8 @@
                 </thead>
                 <tbody>
                     <?php
-                        include __DIR__."/../data_object/course.php";
-                        include __DIR__."/../data_object/course_log.php";
+                        include_once __DIR__."/../data_object/course.php";
+                        include_once __DIR__."/../data_object/course_log.php";
                         $course = new course();
                         $course_log = new course_log();
                         $selected_course = $course_log -> get_by_student_id($_GET["id"]);

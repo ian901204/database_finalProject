@@ -10,15 +10,16 @@
         ?>
         <div class = "content">
             <div id="add_course" class="overlay">
-                <div class = "overlay_action">
+                <div class = "overlay_action" style = "height: 250px">
                     <div class = "input_area">
-                        <label class = "overlay_label">新增課程</label>
-                        <input class = "data_input" placeholder = "請輸入名稱"></input>
-                        <input class = "data_input" placeholder = "請輸入學分"></input>
+                        <label class = "overlay_label" id = "add_label">新增課程</label>
+                        <input class = "data_input" id = "add_id" placeholder = "請輸入課程編號"></input>
+                        <input class = "data_input" id = "add_name" placeholder = "請輸入名稱"></input>
+                        <input class = "data_input" id = "add_credits" placeholder = "請輸入學分"></input>
                     </div>
                     <div class = "button_area">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav('add_course')">&times;</a>
-                        <button class = "add_button" onclick="openNav()">新增課程</button>
+                        <button class = "add_button" onclick="add_course()">新增課程</button>
                     </div>
                 </div>
             </div>
@@ -55,7 +56,7 @@
                             echo "<td id = 'name'>".$data["name"]."</td>";
                             echo "<td id = 'id'>".$data["id"]."</td>";
                             echo "<td id = 'credits'>".$data["credits"]."</td>";
-                            echo "<td><button class='course success' onclick = \"edit('".$data["id"]."')\">編輯</button><button class = 'course danger' onclick = 'delete(".$data["id"].")'>刪除</button></td>";
+                            echo "<td><button class='course success' onclick = \"edit('".$data["id"]."')\">編輯</button><button class = 'course danger' onclick = \"delete_course('".$data["id"]."')\">刪除</button></td>";
                             echo "</tr>";
                         }
                     ?>
@@ -69,33 +70,21 @@
             </table>
         </div>
     </body>
+    <script src="js/course_manage.js"></script>
     <script>
-        function edit_course(id){
-            $.ajax({
-                url:"/api/course/edit_id.php",
-                type: 'POST',
-                dataType: 'json',
-                contentType: "application/json",
-                data: JSON.stringify({ 
-                    id: id,
-                    name: $("#course_name").val(),
-                    credits: $("#course_credits").val()
-                }),
-                success: function(data){
-                    $("#" + id).find("#name").text($("#course_name").val())
-                    $("#" + id).find("#credits").text($("#course_credits").val())
-                    document.getElementById("edit_course").style.height = "0%";
-                },
-                error: function(jqXhr, textStatus, errorMessage){
-                    alert("編輯失敗 請稍後在試一次")
-                }
-            });
-        }
-        function edit(id){
-            openNav("edit_course");
-            $("#course_name").val($("#" + id).find("#name").text());
-            $("#course_credits").val($("#" + id).find("#credits").text());
-            $("#edit_button").attr("onclick","edit_course('"+ id +"')");
-        }
+        $("input#add_id").focusout(function(){
+            if ($(this).val() == ""){
+                return false;
+            }
+            check_id($(this).val());
+        });
+        $("input#add_name").focusout(function(){
+            if ($(this).val() != ""){
+                $("#add_label").css("color", "black");
+                $("#add_label").text("新增課程");
+                $("#add_name").css("border", "1px solid grey");
+            }
+        });
+
     </script>
 </html>

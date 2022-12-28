@@ -88,5 +88,9 @@
                 $("#add_name").css("border", "1px solid grey");
             }
         });
+        function next_page(){
+            console.log("next page call")
+            $("tr:nth-child(n + 12)").css("display", "table-row;")
+        }
     </script>
 </html>

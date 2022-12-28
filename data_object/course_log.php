@@ -52,6 +52,21 @@ class course_log extends mysql_conn
             return $e -> getMessage();
         }
     }
+    public function delete($student_id, $course_id){
+        try{
+            $table = $this::$table;
+            $student_id = $this::$conn -> quote($student_id);
+            $course_id = $this::$conn -> quote($course_id);
+            $result = $this::$conn -> exec("DELETE FROM $table WHERE student_id = $student_id AND course_id = $course_id");
+            if ($result == 0){
+                return FALSE;
+            }elseif ($result == 1){
+                return TRUE;
+            }
+        }catch (PDOException $e) {
+            return $e -> getMessage();
+        }
+    }
     public function delete_by_student_id($student_id){
         try{
             $table = $this::$table;
@@ -70,7 +85,6 @@ class course_log extends mysql_conn
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
-                $this::$conn->commit();
                 return TRUE;
             }
         }catch (PDOException $e) {

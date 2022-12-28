@@ -16,7 +16,7 @@
         <a href="javascript:void(0)" id = "menu_3_1" class = "menu-option child" onclick = "openNav('add_student')" style = "display:none;">新增學生</a>
     </menu>
     <menu>
-        <a id = "menu_4" class = "menu-option" href = "teacher/select_course_manage.php">選課作業</a>
+        <a id = "menu_4" class = "menu-option" href = "teacher/select_course_manage.php?id=0">選課作業</a>
     </menu>
 </div>
 <script>
