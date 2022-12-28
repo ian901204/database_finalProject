@@ -1,5 +1,4 @@
-function check_id (id){
-    var defer = $.Deferred();    
+function check_id (){ 
     var id_regex = /^[A-Z]\d{4}$/;
     if (!id_regex.test($("#add_id").val())){
         $("#add_id").css("border", "2px solid red");
@@ -7,7 +6,7 @@ function check_id (id){
         $("#add_label").text("學生編號不符合規定(長度為5 ex:SXXXX)");
         return false;
     }else{
-        $.ajax({
+        return $.ajax({
             type: "POST",
             url: "/api/student/check_id.php",
             data: JSON.stringify({
@@ -15,6 +14,7 @@ function check_id (id){
             }),
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 $("input#add_id").css("border", "1px solid gray");
                 $("#add_label").css("color", "black");
                 $("#add_label").text("新增學生");
@@ -46,8 +46,7 @@ function add_student(){
     $("#add_label").text("新增學生");
     $("#add_name").css("border", "1px solid grey");
     $.when(check_id($("#add_id").val())).done(function(data){
-        console.log(data);
-        if (data){
+        if (data["status"] == "success"){
             $.ajax({
                 url:"/api/student/add.php",
                 type: 'POST',

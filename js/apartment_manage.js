@@ -12,7 +12,7 @@ function add_apartment(){
         return false;
     }
     $("#add_label").css("color", "black");
-    $("#add_label").text("新增學生");
+    $("#add_label").text("新增系所");
     $("#add_name").css("border", "1px solid grey");
     $.when(check_id($("#add_id").val())).done(function(data){
         if(data["status"] == "success"){
@@ -24,7 +24,7 @@ function add_apartment(){
                 data: JSON.stringify({ 
                     id: $("#add_id").val(),
                     name: $("#add_name").val(),
-                    director: $("#director").val()
+                    director: $("#add_director").val()
                 }),
                 success: function(data){
                     var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'director'>"+$("#add_director").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = \"delete_apartment('"+$("#add_id").val()+"')\">刪除</button></td></tr>"
@@ -113,8 +113,7 @@ function edit(id){
     $("#apartment_director").val($("#" + id).find("#director").text());
     $("#edit_button").attr("onclick","edit_apartment('"+ id +"')");
 }
-function check_id (id){
-    var defer = $.Deferred();    
+function check_id (){
     var id_regex = /^[A-Z]\d{3}$/;
     if (!id_regex.test($("#add_id").val())){
         $("#add_id").css("border", "2px solid red");
