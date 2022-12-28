@@ -51,7 +51,6 @@ class apartment extends mysql_conn
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
-                $this::$conn->commit();
                 return TRUE;
             }
         }catch (PDOException $e) {
