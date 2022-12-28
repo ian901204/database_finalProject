@@ -67,7 +67,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td style = 'text-align: center;'><a href = "javascript:void(0)" onclick = 'next_page()'>下一頁</a></td>
                     </tr>
                 </tbody>
             </table>
