@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__."/mysql_conn.php";
+require __DIR__."/course_log.php";
 class student extends mysql_conn
 {
     private static $table = "student";
@@ -43,16 +44,20 @@ class student extends mysql_conn
     public function delete_by_id($id){
         try{
             $table = $this::$table;
+            $course_log = new course_log();
+            $result = $course_log -> delete_by_student_id($id);
+            if (!is_int($result)){
+                return $result;
+            }
             $id = $this::$conn -> quote($id);
-            $result = $this::$conn -> exec("DELETE FROM $table WHERE id = $id");
+            $sql = $this::$conn -> prepare("DELETE FROM $table WHERE id = $id");
+            $result = $sql -> execute();
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1){
-                $this::$conn->commit();
                 return TRUE;
             }
         }catch (PDOException $e) {
-            $this::$conn -> rollBack();
             return $e -> getMessage();
         }
     }
