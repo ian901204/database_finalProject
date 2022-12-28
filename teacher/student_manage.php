@@ -135,27 +135,31 @@
             $("#add_label").css("color", "black");
             $("#add_label").text("新增學生");
             $("#add_name").css("border", "1px solid grey");
-            $.ajax({
-                url:"/api/student/add.php",
-                type: 'POST',
-                dataType: 'json',
-                contentType: "application/json",
-                data: JSON.stringify({ 
-                    id: $("#add_id").val(),
-                    name: $("#add_name").val(),
-                    apartment_id: $("#add_apartment_id").val()
-                }),
-                success: function(data){
-                    var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td id = 'apartment_id'>"+$("#add_apartment_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = 'delete_student(\""+$("#add_id").val()+"\")'>刪除</button></td></tr>"
-                    console.log($('tbody tr').length - 1)
-                    $("tbody").prepend(append_html);
-                    $("#add_student input.data_input").each(function(){
-                        $(this).val("")
-                    })
-                    closeNav('add_student')
-                },
-                error: function(jqXhr, textStatus, errorMessage){
-                    alert("新增失敗 請稍後再重試一遍")
+            $.when(check_id($("#add_id"))).done(function(data){
+                if (data){
+                    $.ajax({
+                        url:"/api/student/add.php",
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify({ 
+                            id: $("#add_id").val(),
+                            name: $("#add_name").val(),
+                            apartment_id: $("#add_apartment_id").val()
+                        }),
+                        success: function(data){
+                            var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td id = 'apartment_id'>"+$("#add_apartment_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = 'delete_student(\""+$("#add_id").val()+"\")'>刪除</button></td></tr>"
+                            console.log($('tbody tr').length - 1)
+                            $("tbody").prepend(append_html);
+                            $("#add_student input.data_input").each(function(){
+                                $(this).val("")
+                            })
+                            closeNav('add_student')
+                        },
+                        error: function(jqXhr, textStatus, errorMessage){
+                            alert("新增失敗 請稍後再重試一遍")
+                        }
+                    });
                 }
             });
         }

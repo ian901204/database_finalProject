@@ -12,11 +12,10 @@ class apartment extends mysql_conn
             $id = $this::$conn -> quote($id);
             $name = $this::$conn -> quote($name);
             $director = $this::$conn -> quote($director);
-            $result = $this::$conn -> exec("INSERT INTO $table (id, name, director) VALUES($id, $name, $director)");
+            $result = $this::$conn -> exec("INSERT INTO $table VALUES($id, $name, $director)");
             if ($result == 0){
                 return FALSE;
             }elseif ($result == 1) {
-                $this::$conn -> commit();
                 return TRUE;
             }
         }catch (PDOException $e){

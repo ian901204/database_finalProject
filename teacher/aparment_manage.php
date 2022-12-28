@@ -64,7 +64,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td style = "text-align: right;">></td>
                     </tr>
                 </tbody>
             </table>
@@ -80,7 +80,7 @@
                 $("#add_label").text("系所編號不符合規定(長度為4 ex:DXXX)");
                 return false;
             }else{
-                $.ajax({
+                return $.ajax({
                     type: "POST",
                     url: "/api/apartment/check_id.php",
                     data: JSON.stringify({
@@ -133,31 +133,30 @@
             $("#add_label").text("新增學生");
             $("#add_name").css("border", "1px solid grey");
             $.when(check_id($("#add_id").val())).done(function(data){
-                if(!data){
-                    return false;
-                }
-            })
-            $.ajax({
-                url:"/api/student/add.php",
-                type: 'POST',
-                dataType: 'json',
-                contentType: "application/json",
-                data: JSON.stringify({ 
-                    id: $("#add_id").val(),
-                    name: $("#add_name").val(),
-                    director: $("#director").val()
-                }),
-                success: function(data){
-                    var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'director'>"+$("#add_director").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = 'delete_apartment(\""+$("#add_id").val()+"\")'>刪除</button></td></tr>"
-                    console.log($('tbody tr').length - 1)
-                    $("tbody").prepend(append_html);
-                    $("#add_apartment input.data_input").each(function(){
-                        $(this).val("")
-                    })
-                    closeNav('add_apartment')
-                },
-                error: function(jqXhr, textStatus, errorMessage){
-                    alert("新增失敗 請稍後再重試一遍")
+                if(data){
+                    $.ajax({
+                        url:"/api/student/add.php",
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify({ 
+                            id: $("#add_id").val(),
+                            name: $("#add_name").val(),
+                            director: $("#director").val()
+                        }),
+                        success: function(data){
+                            var append_html = "<tr id = "+$("#add_id").val()+"><td id = 'name'>"+$("#add_name").val()+"</td><td id = 'director'>"+$("#add_director").val()+"</td><td id = 'id'>"+$("#add_id").val()+"</td><td><button class='course success' onclick = \"edit('"+$("#add_id").val()+"')\">編輯</button><button class = 'course danger' onclick = 'delete_apartment(\""+$("#add_id").val()+"\")'>刪除</button></td></tr>"
+                            console.log($('tbody tr').length - 1)
+                            $("tbody").prepend(append_html);
+                            $("#add_apartment input.data_input").each(function(){
+                                $(this).val("")
+                            })
+                            closeNav('add_apartment')
+                        },
+                        error: function(jqXhr, textStatus, errorMessage){
+                            alert("新增失敗 請稍後再重試一遍")
+                        }
+                    });
                 }
             });
         }
