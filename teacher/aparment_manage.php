@@ -64,7 +64,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td style = "text-align: right;">></td>
+                        <td style = "text-align: right;"></td>
                     </tr>
                 </tbody>
             </table>
