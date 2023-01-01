@@ -64,7 +64,6 @@ class course extends mysql_conn
                 return TRUE;
             }
         }catch (PDOException $e) {
-            $this::$conn -> rollBack();
             return $e -> getMessage();
         }
     }
